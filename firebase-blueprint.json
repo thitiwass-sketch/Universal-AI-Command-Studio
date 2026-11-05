@@ -1,0 +1,140 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile with authentication and system preferences",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Unique Firebase user ID"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "User email address"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User display name"
+        },
+        "photoURL": {
+          "type": "string",
+          "description": "User avatar photo URL"
+        },
+        "defaultMode": {
+          "type": "string",
+          "description": "Preferred default Auto Mode"
+        },
+        "language": {
+          "type": "string",
+          "enum": ["th", "en"],
+          "description": "Preferred UI language"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Profile creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Profile update timestamp"
+        }
+      },
+      "required": ["userId", "email"]
+    },
+    "ExecutionRecord": {
+      "title": "ExecutionRecord",
+      "description": "Saved execution record of prompt runs, outputs, and QA scores",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Execution record ID"
+        },
+        "userId": {
+          "type": "string",
+          "description": "Owner user ID"
+        },
+        "prompt": {
+          "type": "string",
+          "description": "Input prompt executed"
+        },
+        "command": {
+          "type": "string",
+          "description": "Resolved canonical command"
+        },
+        "autoMode": {
+          "type": "string",
+          "description": "Active auto mode during execution"
+        },
+        "output": {
+          "type": "string",
+          "description": "Delivered output text"
+        },
+        "qaScore": {
+          "type": "number",
+          "description": "50-point QA gate score percentage"
+        },
+        "qaStatus": {
+          "type": "string",
+          "description": "50-point QA gate status (PASS, REVIEW, FAIL)"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Execution timestamp"
+        }
+      },
+      "required": ["id", "userId", "prompt", "command", "output"]
+    },
+    "FavoriteCommand": {
+      "title": "FavoriteCommand",
+      "description": "Bookmarked canonical commands by user",
+      "type": "object",
+      "properties": {
+        "commandId": {
+          "type": "string",
+          "description": "Command canonical path or ID"
+        },
+        "userId": {
+          "type": "string",
+          "description": "Owner user ID"
+        },
+        "canonical": {
+          "type": "string",
+          "description": "Canonical command name"
+        },
+        "title": {
+          "type": "string",
+          "description": "Command title"
+        },
+        "category": {
+          "type": "string",
+          "description": "Command category domain"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Favorited timestamp"
+        }
+      },
+      "required": ["commandId", "userId", "canonical"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Stores user profiles with authentication metadata"
+    },
+    "/users/{userId}/executions/{executionId}": {
+      "schema": "ExecutionRecord",
+      "description": "Stores user execution prompt history and outputs"
+    },
+    "/users/{userId}/favorites/{commandId}": {
+      "schema": "FavoriteCommand",
+      "description": "Stores user bookmarked canonical commands"
+    }
+  }
+}

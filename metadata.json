@@ -1,0 +1,6 @@
+{
+  "name": "GEMINI UNIVERSAL AI OS V6.1",
+  "description": "Bilingual AI OS with 99 Canonical Commands, Smart Router, 20 Auto Modes, 50-Point QA Gate & Workflow Engine by Thitiwas Kanchanaphimai, NRRU",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
